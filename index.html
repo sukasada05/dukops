@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- ========== PWA CONFIGURATION ========== -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="DUKOPS">
+    <title>SISTEM PELAPORAN DUKOPS BABINSA dan JADWAL PIKET KORAMIL</title>
+    <meta name="theme-color" content="#202624">
+    
+    <!-- ========== FAVICON & MANIFEST ========== -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="assets/images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+    <link rel="shortcut icon" href="assets/images/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png" />
+    
+    <!-- ========== EXTERNAL LIBRARIES ========== -->
+    <script src="https://cdn.polyfill.io/v3/polyfill.min.js?features=default,es6,Promise,fetch,Array.prototype.includes"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- ========== INTERNAL CSS FILES ========== -->
+    <link rel="stylesheet" href="assets/css/common.css">
+    <link rel="stylesheet" href="assets/css/splash.css">
+    <link rel="stylesheet" href="assets/css/dukops.css">
+    <link rel="stylesheet" href="assets/css/jadwal-piket.css">
+    <link rel="stylesheet" href="assets/css/attendance.css">
+</head>
+<body>
+    <!-- ================= SPLASH SCREEN ================= -->
+    <div id="splashScreen" class="splash-container">
+        <!-- Logo Kodam Udayana -->
+        <div class="splash-circle">
+            <div class="logo-container">
+                <img src="assets/images/logos/lambang_kodam_udayana.svg" 
+                     alt="Lambang Kodam Udayana" 
+                     class="svg-logo">
+            </div>
+        </div>
+        
+        <!-- Teks Aplikasi -->
+        <div class="splash-title">DUKOPS BABINSA dan JADWAL PIKET</div>
+        <div class="splash-unit">KORAMIL 1609-05/SUKASADA</div>
+        <div class="splash-subtitle">KODIM 1609/BULELENG</div>
+        
+        <!-- Progress Bar -->
+        <div class="splash-progress-container">
+            <div class="splash-progress-bar" id="splashProgressBar"></div>
+            <div class="progress-percentage" id="progressPercentage">0%</div>
+        </div>
+        
+        <!-- Tombol Pilihan Aplikasi -->
+        <div class="splash-buttons">
+            <button class="splash-btn splash-btn-dukops" id="splashDukopsBtn" onclick="SPLASH.loadDukopsApp()">
+                <i class="fas fa-file-upload"></i> klik disini ➯ OPEN APLIKASI DUKOPS
+            </button>
+        </div>
+        
+        <!-- Loading Text -->
+        <div class="loading-text" id="loadingStatusText">Pilih aplikasi yang akan digunakan</div>
+    </div>
+    
+    <!-- ================= APLIKASI UTAMA ================= -->
+    <div id="appContainer" class="container" style="display: none;">
+        <!-- Install Button -->
+        <button id="installButton">
+            <i class="fas fa-download"></i> Install App
+        </button>
+        
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons">
+            <button class="nav-btn active" id="btnDukops">
+                <i class="fas fa-file-upload"></i> DUKOPS BABINSA
+            </button>
+            <button class="nav-btn" id="btnJadwal">
+                <i class="fas fa-calendar-alt"></i> JADWAL PIKET
+            </button>
+        </div>
+        
+        <!-- DUKOPS Content -->
+        <div id="dukopsContent">
+            <!-- Konten DUKOPS akan dimuat dinamis -->
+            <div style="text-align: center; padding: 50px; color: #4dff4d;">
+                <i class="fas fa-spinner fa-spin fa-3x"></i><br>
+                <h3>Memuat Aplikasi DUKOPS...</h3>
+                <p>Mohon tunggu sebentar</p>
+            </div>
+        </div>
+        
+        <!-- Jadwal Piket Content -->
+        <div id="jadwalPiketContainer" style="display: none;">
+            <!-- Konten Jadwal Piket akan dimuat dinamis -->
+            <div style="text-align: center; padding: 50px; color: #4dff4d;">
+                <i class="fas fa-spinner fa-spin fa-3x"></i><br>
+                <h3>Memuat Jadwal Piket...</h3>
+                <p>Mohon tunggu sebentar</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ================= JAVASCRIPT FILES (URUTAN PENTING!) ================= -->
+    <!-- 1. CONFIGURATION -->
+    <script src="config/api-config.js"></script>
+    
+    <!-- 2. UTILITY FUNCTIONS -->
+    <script src="assets/js/utils.js"></script>
+    
+    <!-- 3. SPLASH SCREEN -->
+    <script src="assets/js/splash.js"></script>
+    
+    <!-- 4. DUKOPS MODULE -->
+    <script src="assets/js/dukops/main.js"></script>
+    
+    <!-- 5. JADWAL PIKET MODULE -->
+    <script src="assets/js/jadwal-piket/main.js"></script>
+    
+    <!-- 6. AUDIO SYSTEM -->
+    <script src="assets/js/audio/audio-base64.js"></script>
+    
+    <!-- 7. MAIN APP CONTROLLER (TERAKHIR!) -->
+    <script src="assets/js/app.js"></script>
+    
+    <!-- ================= INITIALIZATION SCRIPT ================= -->
+    <script>
+        // Debug info
+        console.log("🚀 DUKOPS Application Loading...");
+        console.log("Version: 3.0");
+        console.log("Developer: Serka I Nyoman Arta");
+        console.log("Unit: KORAMIL 1609-05/SUKASADA");
+        
+        // Auto-initialize check
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("✅ DOM Ready - All scripts loaded");
+            
+            // Check if all modules are loaded
+            setTimeout(function() {
+                if (typeof SPLASH !== 'undefined') {
+                    console.log("✅ SPLASH module loaded");
+                } else {
+                    console.error("❌ SPLASH module not found!");
+                }
+                
+                if (typeof APP !== 'undefined') {
+                    console.log("✅ APP module loaded");
+                } else {
+                    console.error("❌ APP module not found!");
+                }
+                
+                if (typeof DUKOPS !== 'undefined') {
+                    console.log("✅ DUKOPS module loaded");
+                } else {
+                    console.warn("⚠️ DUKOPS module not found (will load later)");
+                }
+                
+                if (typeof JADWAL !== 'undefined') {
+                    console.log("✅ JADWAL module loaded");
+                } else {
+                    console.warn("⚠️ JADWAL module not found (will load later)");
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

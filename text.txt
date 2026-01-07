@@ -1,0 +1,8 @@
+
+## 🚀 Instalasi & Setup
+
+### 1. Persiapan Awal
+```bash
+# Clone repository atau copy semua file
+# Jalankan script organize-files.bat untuk mengorganisir file
+organize-files.bat
